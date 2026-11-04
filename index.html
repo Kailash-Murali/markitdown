@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- figma:head-start -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="Your documents, beautifully simplified. Convert PDF, Word, Excel and PowerPoint files to Markdown." />
+    <title>Markitdown. — A simpler format.</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2309090b'/%3E%3Cpath d='M12 43V22h7l7 11 7-11h7v21h-7V32l-7 10-7-10v11zm32-12h5V21h6v10h5L52 42z' fill='white'/%3E%3C/svg%3E" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700;750;800&family=Manrope:wght@400;500;600;650;700;750;800&display=swap');
+      :root{font-family:'DM Sans',sans-serif;color:#09090b;background:#fff;font-synthesis:none;--muted:#818187;--line:#eaeaea}
+      *{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}button:disabled{cursor:wait}button,a{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #5ba8fc;outline-offset:5px}button{border:0}svg{display:block}button svg{flex-shrink:0}[hidden]{display:none!important}
+      .app{display:grid;grid-template-columns:65% 35%;min-height:100svh;overflow:hidden}
+      .story,.workspace{position:relative;min-height:100svh}.story{border-right:2px solid #111;isolation:isolate;overflow:hidden}.workspace{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:126px 30px 110px;isolation:isolate}
+      .brand{position:absolute;top:48px;left:48px;z-index:3;padding:12px 16px;border-radius:20px;background:rgba(255,255,255,.84);backdrop-filter:blur(12px)}
+      .brand-line{display:flex;align-items:center;gap:13px}.brand-mark{width:31px;height:25px}.brand h1{font-family:'Manrope',sans-serif;margin:0;font-size:44px;line-height:1.2;font-weight:800;letter-spacing:-2.3px}.brand p{font-size:16px;margin:8px 0 0 44px;color:#52525b;letter-spacing:-.2px}
+      .ambient{position:absolute;inset:0;z-index:-2;overflow:hidden;pointer-events:none}.floater{position:absolute;width:var(--size,148px);height:var(--size,148px);opacity:.72;filter:drop-shadow(0 20px 26px rgba(0,0,0,.075));animation:float 6s ease-in-out infinite;animation-delay:var(--delay,0s)}.floater>svg{width:100%;height:100%;transform:rotate(var(--rotate,0deg))}
+      .icon-a{left:51%;top:5%;--size:135px;--rotate:12deg;--delay:-1s}.icon-b{right:-6%;top:24%;--size:173px;--rotate:-13deg;--delay:-3s}.icon-c{left:6%;top:32%;--size:125px;--rotate:-13deg;--delay:-4s}.icon-d{right:11%;top:57%;--size:142px;--rotate:12deg;--delay:-2s}.icon-e{left:2%;bottom:10%;--size:151px;--rotate:9deg;--delay:-1s}.icon-f{left:35%;bottom:-6%;--size:180px;--rotate:-12deg;--delay:-3s}.icon-g{right:-6%;bottom:1%;--size:140px;--rotate:8deg;--delay:-5s}
+      .hero{position:absolute;top:46%;left:9%;right:5%;transform:translateY(-38%);z-index:2;width:fit-content;padding:22px 20px 26px;border-radius:24px;background:rgba(255,255,255,.75);backdrop-filter:blur(3px)}
+      .eyebrow{display:flex;align-items:center;gap:9px;font-size:10px;font-weight:650;letter-spacing:1.8px;text-transform:uppercase}.green-dot{width:6px;height:6px;border-radius:50%;background:#5b9d78;box-shadow:0 0 0 3px #5b9d780e}
+      .hero h2{font-family:'Manrope',sans-serif;font-size:clamp(42px,4.4vw,72px);font-weight:650;line-height:1.15;letter-spacing:-3.5px;margin:24px 0 21px}.hero h2 span{color:#929298}.hero p{font-size:15px;color:#717179;line-height:1.8;margin:0;max-width:335px}.hero .hero-note{display:flex;align-items:center;gap:7px;margin-top:26px;font-size:11px;color:#8c8c94}.hero-note svg{width:14px;height:14px}
+      .story-footer{position:absolute;bottom:34px;left:64px;right:48px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#8c8c91;z-index:3}.story-footer span{display:flex;align-items:center;gap:7px}.story-footer svg{width:14px;height:14px}
+      .workspace-label{position:absolute;top:65px;display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:1.7px;font-weight:600;color:#6c6c75}.workspace-label svg{width:13px;height:13px;color:#999}.workspace .icon-h{left:3%;top:-8%;--size:160px;--rotate:13deg;opacity:.45}.workspace .icon-i{right:-15%;top:15%;--size:144px;--rotate:-13deg;opacity:.37}.workspace .icon-j{left:-11%;bottom:5%;--size:138px;--rotate:-13deg;opacity:.46}.workspace .icon-k{right:-9%;bottom:-9%;--size:180px;--rotate:12deg;opacity:.5}
+      .dock{width:100%;max-width:376px;border:1px solid rgba(0,0,0,.085);border-radius:24px;background:rgba(255,255,255,.86);backdrop-filter:blur(16px);box-shadow:0 8px 40px #18181b04;padding:30px 27px 27px;transition:box-shadow .25s,border-color .25s;z-index:2}
+      .dock-heading{text-align:center;margin-bottom:24px}.dock-heading h2{font-family:'Manrope',sans-serif;font-size:20px;font-weight:750;letter-spacing:-.75px;margin:0 0 8px}.dock-heading p{font-size:11px;color:#85858d;margin:0}
+      .dropzone{background:#101012;border-radius:13px;position:relative;min-height:189px;color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;width:100%;transition:background .2s,transform .2s}.dropzone:before{content:'';position:absolute;inset:9px;border:1px dashed #ffffff62;border-radius:7px;pointer-events:none}.dropzone:hover{background:#242426}.upload-symbol{width:42px;height:42px;border:1px solid #ffffff28;border-radius:11px;display:grid;place-items:center;background:#ffffff09}.upload-symbol svg{width:21px;height:21px}.drop-title{font-size:21px;font-weight:500;letter-spacing:-.6px}.drop-subtitle{font-size:10px;color:#aaaab2;margin-top:-7px}
+      .separator{display:flex;align-items:center;gap:13px;margin:18px 0;color:#88888f;font-size:11px}.separator:before,.separator:after{content:'';height:1px;background:#ebebed;flex:1}
+      .primary{background:#101012;color:white;border-radius:999px;min-height:48px;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;font-weight:500;transition:transform .2s,box-shadow .2s,background .2s}.primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 20px #00000026;background:#242426}.primary svg{width:15px;height:15px}.upload-limit{font-size:10px;text-align:center;margin:12px 0 23px;color:#98989f}
+      .formats{border-top:1px solid var(--line);padding-top:19px}.formats-label{text-align:center;font-size:9px;color:#929299;margin:0 0 12px}.format-list{display:flex;gap:5px;justify-content:center}.format-tag{padding:5px 7px;border:1px solid #ededee;border-radius:5px;font-size:8px;font-weight:600;letter-spacing:.2px;color:#696972;background:#ffffffa8;white-space:nowrap}.format-dot{display:inline-block;width:4px;height:4px;border-radius:50%;margin:0 4px 1px 0}.extra-formats{text-align:center;font-size:9px;color:#a0a0a7;margin:9px 0 0}
+      .privacy-note{display:flex;gap:6px;align-items:center;justify-content:center;color:#96969e;font-size:9px;margin-top:18px;z-index:2}.privacy-note svg{width:12px;height:12px}
+      .workspace-footer{position:absolute;bottom:34px;left:32px;right:32px;display:flex;align-items:center;justify-content:space-between;color:#96969d;font-size:10px}.how-button{display:flex;gap:6px;align-items:center;color:#71717a;background:transparent;padding:4px 0;font-size:10px}.how-button svg{width:13px;height:13px}.powered{display:flex;align-items:center;gap:4px}.powered strong{font-weight:650;color:#575760}
+      .dragging .dock{box-shadow:0 0 0 4px #72adbe30,0 0 70px #58be9520;border-color:#78b7a9}.dragging .dropzone{background:#153f35}.dragging .dropzone:before{border-color:#b2f6d5}
+      .status-panel{text-align:center;padding:4px 0}.file-badge{display:flex;align-items:center;gap:11px;border:1px solid #e9e9ed;border-radius:10px;padding:12px;text-align:left;margin:18px 0}.file-badge svg{height:34px;width:34px;flex-shrink:0}.file-meta{min-width:0;flex:1}.file-name{font-size:12px;font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.file-size{font-size:10px;color:#94949d;margin-top:4px}.status-title{font-size:20px;letter-spacing:-.6px;font-family:'Manrope',sans-serif;margin:15px 0 8px}.status-description{font-size:11px;color:#85858d;line-height:1.7;margin:0}.spinner{width:39px;height:39px;border-radius:50%;border:2px solid #ededf0;border-top-color:#111;margin:10px auto 20px;animation:spin 1s linear infinite}.progress-track{height:3px;background:#ededf0;border-radius:4px;overflow:hidden;margin:22px 0 12px}.progress-track:after{content:'';display:block;background:#111;width:38%;height:100%;animation:progress 1.7s ease-in-out infinite}
+      .success-symbol{height:44px;width:44px;border:1px solid #d7eade;background:#eff8f2;color:#42835a;border-radius:50%;display:grid;place-items:center;margin:4px auto 16px}.success-symbol svg{width:21px;height:21px}.secondary{display:flex;align-items:center;justify-content:center;gap:7px;background:#fff;border:1px solid #e5e5e9;border-radius:999px;width:100%;min-height:43px;margin-top:9px;color:#45454f;font-size:11px}.secondary:hover{background:#f7f7f8}.secondary svg{width:13px;height:13px}.text-button{font-size:10px;color:#83838b;background:none;padding:14px 4px 0;text-decoration:underline;text-underline-offset:3px}.preview{border:1px solid #e8e8ec;border-radius:9px;margin-top:17px;text-align:left}.preview summary{cursor:pointer;font-size:10px;font-weight:500;padding:12px;color:#60606b}.preview pre{font:10px/1.7 ui-monospace,SFMono-Regular,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto;background:#fafafa;padding:12px;margin:0;border-top:1px solid #eee;color:#555560}.result-info{font-size:9px;color:#92929b;margin-top:12px}.error{font-size:11px;line-height:1.7;padding:12px;border:1px solid #f5d5d5;background:#fff7f7;color:#b34444;border-radius:9px;margin:15px 0 0;text-align:left}.cancel-button{background:none;font-size:10px;color:#84848b;padding:13px}
+      dialog{border:1px solid #e5e5e7;border-radius:22px;padding:32px;width:calc(100% - 40px);max-width:450px;color:#141418;box-shadow:0 30px 100px #0002}dialog::backdrop{background:#18181b40;backdrop-filter:blur(5px)}.dialog-top{display:flex;align-items:center;justify-content:space-between}dialog h2{font-family:'Manrope',sans-serif;font-size:23px;letter-spacing:-.8px;margin:0}.close-dialog{font-size:22px;background:#f5f5f7;border-radius:50%;width:29px;height:29px;color:#73737c}dialog ol{list-style:none;counter-reset:steps;padding:0;margin:27px 0}dialog li{counter-increment:steps;position:relative;padding-left:39px;margin:22px 0;font-size:12px;color:#85858d;line-height:1.7}dialog li:before{content:counter(steps);position:absolute;left:0;top:0;width:25px;height:25px;background:#f2f2f4;border-radius:8px;display:grid;place-items:center;font-size:11px;color:#222}dialog li strong{display:block;font-size:13px;color:#1f1f25;font-weight:550;margin-bottom:3px}.dialog-note{font-size:10px;color:#8e8e96;border-top:1px solid #eee;padding-top:18px;line-height:1.8;margin:0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+      @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes progress{0%{transform:translateX(-105%)}100%{transform:translateX(365%)}}
+      @media(min-width:1600px){.dock{max-width:400px;padding:34px 31px}.hero{left:10%}.hero h2{font-size:74px}.dropzone{min-height:210px}}
+      @media(max-width:1100px) and (min-width:761px){.app{grid-template-columns:60% 40%}.workspace{padding-left:22px;padding-right:22px}.brand{left:25px}.brand h1{font-size:37px}.brand p{font-size:14px}.hero{left:5%;padding:18px 12px}.hero h2{font-size:47px;letter-spacing:-2.6px}.hero p{font-size:13px}.story-footer{left:40px;right:24px;font-size:9px}.dock{padding:25px 21px}.format-tag{padding:5px;font-size:7px}.workspace-footer{left:24px;right:24px}.workspace-label{font-size:8px}}
+      @media(max-width:760px){.app{grid-template-columns:1fr}.story{min-height:470px;border-right:0;border-bottom:2px solid #111}.brand{top:21px;left:19px;padding:9px 12px}.brand h1{font-size:32px;letter-spacing:-1.7px}.brand-mark{width:25px;height:22px}.brand-line{gap:9px}.brand p{font-size:12px;margin:7px 0 0 34px}.hero{top:44%;left:27px;padding:12px;transform:translateY(-12%)}.hero h2{font-size:43px;letter-spacing:-2.3px;margin:16px 0 14px}.hero p{font-size:12px;max-width:270px}.hero .hero-note{display:none}.eyebrow{font-size:8px;letter-spacing:1.4px}.story-footer{left:39px;right:30px;bottom:21px;font-size:9px}.story-footer>span:last-child{display:none}.icon-a{--size:88px;left:69%;top:6%}.icon-b{--size:100px;right:-4%;top:32%}.icon-c{display:none}.icon-d{--size:88px;right:5%;top:69%}.icon-e{--size:85px;left:-5%;bottom:-5%}.icon-f{--size:90px;left:57%;bottom:-8%}.icon-g{display:none}.workspace{min-height:680px;padding:84px 26px 90px}.workspace-label{top:31px}.dock{max-width:365px;padding:29px}.workspace-footer{bottom:24px}.workspace .icon-h{--size:96px;left:-8%;top:7%}.workspace .icon-i{--size:100px;right:-10%;top:39%}.workspace .icon-j{--size:100px;bottom:8%}.workspace .icon-k{--size:105px;bottom:-5%}.privacy-note{font-size:9px}}
+      @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.progress-track:after{width:100%;opacity:.4}}
+    </style>
+    <!-- figma:head-end -->
+  </head>
+  <body>
+    <!-- figma:body-start -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="word-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#54d7f0"/><stop offset=".48" stop-color="#7398ff"/><stop offset="1" stop-color="#2556dc"/></linearGradient>
+        <linearGradient id="word-front" x2=".8" y2="1"><stop stop-color="#3986ec"/><stop offset="1" stop-color="#163ca6"/></linearGradient>
+        <linearGradient id="excel-bg" x2="1" y2="1"><stop stop-color="#bef07f"/><stop offset=".5" stop-color="#65c86d"/><stop offset="1" stop-color="#237749"/></linearGradient>
+        <linearGradient id="excel-front" x2="1" y2="1"><stop stop-color="#36c18b"/><stop offset="1" stop-color="#146345"/></linearGradient>
+        <radialGradient id="ppt-bg" cx=".85" cy=".12" r="1"><stop stop-color="#ffe49b"/><stop offset=".48" stop-color="#ffab5e"/><stop offset="1" stop-color="#f06a9c"/></radialGradient>
+        <linearGradient id="ppt-front" x2=".8" y2="1"><stop stop-color="#ff617b"/><stop offset="1" stop-color="#c93531"/></linearGradient>
+        <symbol id="icon-word" viewBox="0 0 160 160"><rect x="28" y="8" width="122" height="142" rx="25" fill="url(#word-bg)"/><path d="M28 61h122v38c0 12-10 22-22 22H28z" fill="#7cafff" opacity=".64"/><rect x="28" y="8" width="122" height="49" rx="23" fill="#92eff5" opacity=".45"/><rect x="7" y="79" width="68" height="67" rx="16" fill="#2449ac" opacity=".15" transform="translate(2 4)"/><rect x="6" y="76" width="67" height="67" rx="16" fill="url(#word-front)"/><text x="39" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="46" font-weight="700" fill="white">W</text></symbol>
+        <symbol id="icon-excel" viewBox="0 0 160 160"><rect x="29" y="7" width="121" height="145" rx="25" fill="url(#excel-bg)"/><path d="M29 69q0-21 24-21h97v80q0 24-24 24H54q-25 0-25-25z" fill="#23763c" opacity=".42"/><rect x="89" y="7" width="61" height="50" rx="17" fill="#c6fc97" opacity=".75"/><path d="M29 69q0-21 23-21h37v31q0 18-18 18H29z" fill="#89dc72" opacity=".4"/><rect x="6" y="83" width="67" height="66" rx="16" fill="#145934" opacity=".15"/><rect x="5" y="79" width="67" height="66" rx="16" fill="url(#excel-front)"/><text x="38" y="129" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" font-weight="600" fill="white">X</text></symbol>
+        <symbol id="icon-ppt" viewBox="0 0 160 160"><circle cx="86" cy="78" r="73" fill="url(#ppt-bg)"/><path d="M43 15c27-9 42 7 42 28v25c0 12 7 18 19 18h22c25 0 32 19 26 33-12 24-36 33-64 33-43 0-74-32-74-72 0-29 12-51 29-65z" fill="#d63f4e" opacity=".56"/><rect x="5" y="80" width="66" height="65" rx="17" fill="#a93b43" opacity=".15"/><rect x="3" y="76" width="66" height="65" rx="17" fill="url(#ppt-front)"/><text x="36" y="126" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" font-weight="600" fill="white">P</text></symbol>
+        <symbol id="icon-pdf" viewBox="0 0 160 160"><rect x="7" y="7" width="146" height="146" rx="29" fill="#dc3f38"/><path d="M49 120c-18 14-25 4-10-9 18-16 45-21 64-23 26-3 31 12 16 13-23 2-51-29-52-58-1-19 12-23 13-7 2 27-25 77-31 84z" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="icon-generic" viewBox="0 0 40 40"><rect x="4" y="2" width="32" height="36" rx="7" fill="#f1f1f5"/><path d="M12 13h16M12 20h16M12 27h10" stroke="#777784" stroke-width="2" stroke-linecap="round"/></symbol>
+        <symbol id="arrow-down" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+        <symbol id="arrow-right" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      </defs>
+    </svg>
+    <main class="app" id="root">
+      <section class="story" aria-label="Markitdown — your documents, simplified">
+        <div class="ambient" aria-hidden="true">
+          <div class="floater icon-a"><svg><use href="#icon-pdf"/></svg></div>
+          <div class="floater icon-b"><svg><use href="#icon-word"/></svg></div>
+          <div class="floater icon-c"><svg><use href="#icon-excel"/></svg></div>
+          <div class="floater icon-d"><svg><use href="#icon-ppt"/></svg></div>
+          <div class="floater icon-e"><svg><use href="#icon-word"/></svg></div>
+          <div class="floater icon-f"><svg><use href="#icon-excel"/></svg></div>
+          <div class="floater icon-g"><svg><use href="#icon-pdf"/></svg></div>
+        </div>
+        <header class="brand">
+          <div class="brand-line"><svg class="brand-mark" viewBox="0 0 36 28" fill="none" aria-hidden="true"><rect x=".8" y=".8" width="34.4" height="26.4" rx="5" stroke="currentColor" stroke-width="1.6"/><path d="M6 20V8h3l4 6 4-6h3v12h-3v-7l-4 6-4-6v7h-3zm18-6h3V8h3v6h3l-4.5 6z" fill="currentColor"/></svg><h1>Markitdown.</h1></div>
+          <p>Convert your files to .md</p>
+        </header>
+        <div class="hero">
+          <div class="eyebrow"><span class="green-dot"></span> A simpler format. A clearer mind.</div>
+          <h2>Big ideas.<br/><span>Plain text.</span></h2>
+          <p>From everyday documents to beautifully<br/>simple Markdown. Keep the content.<br/>Leave the clutter behind.</p>
+          <div class="hero-note"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>No sign-up. No extra steps. Just Markdown.</div>
+        </div>
+        <footer class="story-footer"><span>Less formatting. More possibilities.</span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5-6 7 6 7m8-14 6 7-6 7m-3-16-2 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Made for humans. And their tools.</span></footer>
+      </section>
+      <section class="workspace" aria-label="Convert a document to Markdown">
+        <div class="ambient" aria-hidden="true">
+          <div class="floater icon-h"><svg><use href="#icon-ppt"/></svg></div>
+          <div class="floater icon-i"><svg><use href="#icon-excel"/></svg></div>
+          <div class="floater icon-j"><svg><use href="#icon-word"/></svg></div>
+          <div class="floater icon-k"><svg><use href="#icon-ppt"/></svg></div>
+        </div>
+        <div class="workspace-label">YOUR FILE <svg><use href="#arrow-right"/></svg> A FRESH START</div>
+        <div class="dock" id="dock">
+          <div id="upload-view">
+            <div class="dock-heading"><h2>A new chapter for your files.</h2><p>All the content. None of the complexity.</p></div>
+            <button class="dropzone" id="dropzone" aria-label="Choose a file or drag and drop it here">
+              <span class="upload-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m-5 5 5-5 5 5M4 15v5h16v-5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="drop-title">Drag &amp; drop</span><span class="drop-subtitle">your next great document</span>
+            </button>
+            <div class="separator">or</div>
+            <button class="primary" id="upload-button">Upload a file <svg><use href="#arrow-right"/></svg></button>
+            <p class="upload-limit">One file at a time · Up to 25 MB</p>
+            <div class="formats"><p class="formats-label">A few formats. Endless possibilities.</p><div class="format-list">
+              <span class="format-tag"><i class="format-dot" style="background:#dc625c"></i>PDF</span>
+              <span class="format-tag"><i class="format-dot" style="background:#5f88da"></i>WORD</span>
+              <span class="format-tag"><i class="format-dot" style="background:#59a878"></i>EXCEL</span>
+              <span class="format-tag"><i class="format-dot" style="background:#e99864"></i>POWERPOINT</span>
+            </div><p class="extra-formats">Also HTML, CSV &amp; TXT</p></div>
+          </div>
+          <div id="processing-view" class="status-panel" hidden>
+            <div class="spinner" aria-hidden="true"></div>
+            <h2 class="status-title">A little less clutter.</h2>
+            <p class="status-description">Turning your document into Markdown.<br/>Larger files may take a little longer.</p>
+            <div class="file-badge" id="processing-file"></div>
+            <div class="progress-track" role="progressbar" aria-label="Converting document" aria-valuetext="Conversion in progress"></div>
+            <p class="status-description" id="progress-message">Uploading your document…</p>
+            <button class="cancel-button" id="cancel-button">Cancel conversion</button>
+          </div>
+          <div id="result-view" class="status-panel" hidden>
+            <div class="success-symbol"><svg><use href="#check"/></svg></div>
+            <h2 class="status-title">Hello, Markdown.</h2>
+            <p class="status-description">Your ideas, in a simpler format.<br/>Ready for whatever comes next.</p>
+            <div class="file-badge" id="result-file"></div>
+            <button class="primary" id="download-button"><svg><use href="#arrow-down"/></svg>Download .md</button>
+            <button class="secondary" id="copy-button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="1.5"/></svg><span id="copy-label">Copy to clipboard</span></button>
+            <p class="result-info" id="result-info"></p>
+            <details class="preview"><summary>Take a peek at your Markdown</summary><pre id="markdown-preview"></pre></details>
+            <button class="text-button" id="reset-button">Convert another file</button>
+          </div>
+          <div class="error" id="error-message" role="alert" hidden></div>
+        </div>
+        <div class="privacy-note"><svg><use href="#lock"/></svg>Just passing through. Your files are never stored.</div>
+        <footer class="workspace-footer"><button class="how-button" id="how-button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 9a2.1 2.1 0 1 1 3.5 1.5c-1 .5-1.5 1-1.5 2.5m0 3h.01" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>How it works</button><span class="powered">Powered by <strong>markitdown</strong><svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4h5v5H4zm7 0h5v5h-5zM4 11h5v5H4zm7 0h5v5h-5z" fill="currentColor"/></svg></span></footer>
+      </section>
+    </main>
+    <input class="sr-only" type="file" id="file-input" accept=".pdf,.docx,.xlsx,.pptx,.html,.csv,.txt" tabindex="-1"/>
+    <div class="sr-only" id="announcer" role="status" aria-live="polite"></div>
+    <dialog id="how-dialog" aria-labelledby="how-title">
+      <div class="dialog-top"><h2 id="how-title">Less work. More words.</h2><button class="close-dialog" id="close-dialog" aria-label="Close">×</button></div>
+      <ol><li><strong>Bring your document.</strong>Drop a PDF, Word, Excel, PowerPoint, HTML, CSV, or text file here. One file, up to 25 MB.</li><li><strong>We simplify the format.</strong>Microsoft’s open-source markitdown library extracts your text, headings, links, and tables. Complex layouts may look different; scanned PDFs need a text layer.</li><li><strong>Make it yours.</strong>Download your .md file, copy the text, or preview it right here. Open it in your favorite editor or AI tool.</li></ol>
+      <p class="dialog-note">No account. No database. Uploaded files are processed temporarily and deleted after conversion, even if something goes wrong.</p>
+    </dialog>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const extensions = new Set(['pdf', 'docx', 'xlsx', 'pptx', 'html', 'csv', 'txt']);
+      const maxBytes = 25 * 1024 * 1024;
+      let state = 'idle', activeController = null, result = null, dragDepth = 0, copyTimer;
+      const announce = (text) => { $('announcer').textContent = text; };
+      const formatSize = (bytes) => bytes < 1024 ? `${bytes} B` : bytes < 1024 * 1024 ? `${(bytes / 1024).toFixed(1)} KB` : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+      function setView(view) {
+        state = view;
+        $('upload-view').hidden = view !== 'idle';
+        $('processing-view').hidden = view !== 'processing';
+        $('result-view').hidden = view !== 'result';
+        $('dock').setAttribute('aria-busy', String(view === 'processing'));
+        $('error-message').hidden = true;
+      }
+      function showError(message) {
+        $('error-message').textContent = message;
+        $('error-message').hidden = false;
+        announce(message);
+      }
+      function fileBadge(target, name, size, ext) {
+        const icon = {pdf:'pdf', docx:'word', xlsx:'excel', pptx:'ppt'}[ext] || 'generic';
+        target.replaceChildren();
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        use.setAttribute('href', `#icon-${icon}`);
+        svg.setAttribute('aria-hidden', 'true');
+        svg.append(use);
+        const meta = document.createElement('div');
+        meta.className = 'file-meta';
+        const filename = document.createElement('div');
+        filename.className = 'file-name'; filename.textContent = name; filename.title = name;
+        const filesize = document.createElement('div');
+        filesize.className = 'file-size'; filesize.textContent = size;
+        meta.append(filename, filesize); target.append(svg, meta);
+      }
+      async function convert(files) {
+        if (state === 'processing') return;
+        if (files.length !== 1) { showError('A little focus goes a long way. Please choose one file at a time.'); return; }
+        const file = files[0], ext = file.name.split('.').pop().toLowerCase();
+        if (!extensions.has(ext)) { showError('This format isn’t supported yet. Try a PDF, DOCX, XLSX, PPTX, HTML, CSV, or TXT file.'); return; }
+        if (!file.size) { showError('This file is empty. Choose a document with some content.'); return; }
+        if (file.size > maxBytes) { showError('This file is a little too big. Please choose one smaller than 25 MB.'); return; }
+        result = null;
+        setView('processing');
+        fileBadge($('processing-file'), file.name, formatSize(file.size), ext);
+        $('progress-message').textContent = 'Uploading & simplifying your document…';
+        announce(`Converting ${file.name}.`);
+        const controller = new AbortController(); activeController = controller;
+        let timedOut = false;
+        const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, 130000);
+        const form = new FormData(); form.append('file', file);
+        try {
+          const response = await fetch('/api/convert', { method:'POST', body:form, signal:controller.signal });
+          const type = response.headers.get('content-type') || '';
+          if (!type.includes('application/json')) throw new Error('The conversion service isn’t connected yet. Run the included FastAPI service to convert your files.');
+          const data = await response.json();
+          if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : 'We couldn’t convert this document. Please check the file and try again.');
+          if (typeof data.markdown !== 'string' || typeof data.filename !== 'string') throw new Error('The service returned an incomplete document. Please try again.');
+          if (controller.signal.aborted) return;
+          result = data;
+          setView('result');
+          const bytes = new Blob([data.markdown]).size;
+          fileBadge($('result-file'), data.filename, `${formatSize(bytes)} · Markdown document`, ext);
+          $('markdown-preview').textContent = data.markdown.slice(0, 100000) + (data.markdown.length > 100000 ? '\n\n[Preview shortened. Download for the full document.]' : '');
+          $('result-info').textContent = 'Conversion complete · Your original file has been deleted';
+          $('copy-label').textContent = 'Copy to clipboard';
+          $('copy-button').disabled = false;
+          $('result-view').querySelector('details').open = false;
+          announce(`${data.filename} is ready to download.`);
+          $('download-button').focus({preventScroll:true});
+        } catch (error) {
+          if (controller.signal.aborted && !timedOut) return;
+          setView('idle');
+          showError(timedOut ? 'This conversion took too long. Please try a smaller file.' : error instanceof TypeError ? 'We couldn’t reach the conversion service. Check your connection and make sure FastAPI is running.' : error.message);
+        } finally {
+          clearTimeout(timeout);
+          if (activeController === controller) activeController = null;
+          $('file-input').value = '';
+        }
+      }
+      function pickFile() { if (state !== 'processing') { $('file-input').value = ''; $('file-input').click(); } }
+      $('upload-button').addEventListener('click', pickFile);
+      $('dropzone').addEventListener('click', pickFile);
+      $('file-input').addEventListener('change', (event) => { if (event.target.files.length) convert(event.target.files); });
+      window.addEventListener('dragenter', (event) => {
+        if (!event.dataTransfer?.types.includes('Files')) return;
+        event.preventDefault(); dragDepth++;
+        if (state !== 'processing') document.body.classList.add('dragging');
+      });
+      window.addEventListener('dragover', (event) => { event.preventDefault(); if (event.dataTransfer) event.dataTransfer.dropEffect = state === 'processing' ? 'none' : 'copy'; });
+      window.addEventListener('dragleave', (event) => { event.preventDefault(); if (--dragDepth <= 0) { dragDepth = 0; document.body.classList.remove('dragging'); } });
+      window.addEventListener('drop', (event) => {
+        event.preventDefault(); dragDepth = 0; document.body.classList.remove('dragging');
+        if (event.dataTransfer?.files.length) convert(event.dataTransfer.files);
+      });
+      window.addEventListener('blur', () => { dragDepth = 0; document.body.classList.remove('dragging'); });
+      $('cancel-button').addEventListener('click', () => { activeController?.abort(); activeController = null; setView('idle'); $('file-input').value = ''; announce('Conversion cancelled.'); $('upload-button').focus(); });
+      $('reset-button').addEventListener('click', () => { result = null; clearTimeout(copyTimer); setView('idle'); $('markdown-preview').textContent = ''; $('upload-button').focus(); });
+      $('download-button').addEventListener('click', () => {
+        if (!result) return;
+        const url = URL.createObjectURL(new Blob([result.markdown], {type:'text/markdown;charset=utf-8'}));
+        const link = document.createElement('a'); link.href = url; link.download = result.filename; document.body.append(link); link.click(); link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        announce('Your Markdown download has started.');
+      });
+      $('copy-button').addEventListener('click', async () => {
+        if (!result) return;
+        const markdown = result.markdown;
+        $('copy-button').disabled = true;
+        try {
+          await navigator.clipboard.writeText(markdown);
+          $('copy-label').textContent = 'Copied to clipboard'; announce('Markdown copied to clipboard.');
+          clearTimeout(copyTimer); copyTimer = setTimeout(() => { $('copy-label').textContent = 'Copy to clipboard'; }, 2500);
+        } catch { showError('Clipboard access isn’t available. You can download the file or select text in the preview instead.'); }
+        finally { $('copy-button').disabled = false; }
+      });
+      $('how-button').addEventListener('click', () => $('how-dialog').showModal());
+      $('close-dialog').addEventListener('click', () => $('how-dialog').close());
+      $('how-dialog').addEventListener('click', (event) => {
+        if (event.target !== $('how-dialog')) return;
+        const rect = event.target.getBoundingClientRect();
+        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) event.target.close();
+      });
+    </script>
+    <!-- figma:body-end -->
+  </body>
+</html>
